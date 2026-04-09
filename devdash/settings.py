@@ -32,6 +32,7 @@ DEBUG = 'DEVELOPMENT' in os.environ
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
+    'devdash-project-46fe4773a978.herokuapp.com',
 ]
 
 
