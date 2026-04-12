@@ -2,7 +2,17 @@
 
 {% load static %}
 
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
 {% block content %}
+
+    <!-- Hero section -->
     <div class="container h-100">
         <div class="row h-100">
             <div class="col-12 my-auto text-center">
@@ -10,6 +20,8 @@
                     Turn that mad dash into a victory lap. Fast, professional code audits to ensure you never deploy a bug again.
                 </h1>
                 <div class="my-5">
+
+                    <!-- Browse button -->
                     <h4>
                         <a href="{% url 'services' %}" class="shop-now-button btn btn-lg rounded-0 text-uppercase py-3">Explore our services</a>
                     </h4>
