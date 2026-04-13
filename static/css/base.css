@@ -4,6 +4,21 @@ html {
     scroll-behavior: smooth;
 }
 
+#topnav {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+.navbar {
+    min-height: 50px;
+    padding: 0 !important;
+}
+
+.hero-text {
+    font-size: 1.6rem;
+    line-height: 1.3;
+}
+
 body {
     background: url('/media/homepage_background_cropped.jpg') no-repeat center center fixed;
     background-size: cover;
@@ -20,6 +35,7 @@ body {
     min-height: calc(100vh - 110px);
     display: flex;
     align-items: center;
+    padding-top: 75px;
 }
 
 main {
@@ -57,7 +73,8 @@ footer {
 .shop-now-button {
     background: black;
     color: white;
-    min-width: 260px;
+    min-width: 200px;
+    max-width: 100%;
 }
 
 .btn-black {
@@ -103,6 +120,12 @@ footer {
     }
 
     .header-container {
-        padding-top: 110px;
+        padding-top: 125px;
+    }
+}
+
+@media (min-width: 768px) {
+    .hero-text {
+        font-size: 3.5rem;
     }
 }
