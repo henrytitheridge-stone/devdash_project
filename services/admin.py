@@ -3,4 +3,14 @@ from .models import Service
 
 
 # Register your models here.
-admin.site.register(Service)
+class ServiceAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'price',
+        'image',
+    )
+
+    ordering = ('name',)
+
+
+admin.site.register(Service, ServiceAdmin)
