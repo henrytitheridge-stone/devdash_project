@@ -11,4 +11,4 @@ def all_services(request):
         'services': services,
     }
 
-    return render(request, services/services.html, context)
+    return render(request, 'services/services.html', context)
