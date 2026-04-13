@@ -1,13 +1,40 @@
 html {
     height: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 body {
     background: url('/media/homepage_background_cropped.jpg') no-repeat center center fixed;
     background-size: cover;
-    height: calc(100vh - 110px);
+    min-height: 100vh;
     color: #555;
     font-family: 'Lato';
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.hero-container {
+    min-height: calc(100vh - 110px);
+    display: flex;
+    align-items: center;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+footer {
+    background-color: white !important;
+    z-index: 100;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    flex-shrink: 0;
 }
 
 /* from Bulma */
