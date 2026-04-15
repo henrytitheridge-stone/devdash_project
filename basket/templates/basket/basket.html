@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="overlay"></div>
+    <div class="container mb-2">
+        <div class="row">
+            <div class="col text-center mt-3">
+                <hr class="w-50">
+                <h2 class="logo-font text-black mb-4">Your basket</h2>
+                <hr class="w-50">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-8 offset-lg-2">
+                
+
+                <!-- Mobile display -->
+                <div class="d-block d-md-none text-center">
+                    {% for item in basket_items %}
+                        <div class="row justify-content-center">
+                            <div class="col-12 mb-3">
+                                {% if item.service.image %}
+                                    <img class="img-fluid rounded shadow-sm" src="{{ item.service.image.url }}" alt="{{ item.service.name }}">
+                                {% else %}
+                                    <img class="img-fluid rounded shadow-sm" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.service.name }}">
+                                {% endif %}
+                            </div>
+                            <div class="col-12 mb-2 text-center">
+                                <p class="my-0 text-black"><strong>{{ item.service.name }}</strong></p>
+                                <p class="my-0 small text-muted">Price: ${{ item.service.price }}</p>
+                                <a class="remove-item text-danger" id="remove-mobile_{{ item.item_id }}">
+                                    <small>Remove from basket</small>
+                                </a>
+                            </div>
+                        </div>
+                        <hr>
+                    {% endfor %}
+                    <div class="row mt-4">
+                        <div class="col text-center">
+                            <h4 class="logo-font"><strong>Basket total: ${{ grand_total|floatformat:2 }}</strong></h4>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <a href="{% url 'services' %}" class="btn btn-outline-black rounded-0 btn-block mb-2">
+                                <span class="icon"><i class="fas fa-chevron-left"></i></span>
+                                <span class="text-uppercase">Keep looking</span>
+                            </a>
+                            <a href="#" class="btn btn-black rounded-0 btn-block mb-5">
+                                <span class="icon"><i class="fas fa-lock"></i></span>
+                                <span class="text-uppercase text-white">Secure Checkout</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desktop display -->
+                <div class="table-responsive rounded d-none d-md-block">
+                    <table class="table table-sm table-borderless">
+                        <thead class="text-black border-bottom">
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Service</th>
+                                <th scope="col" class="text-right">Price</th>
+                            </tr>
+                        </thead>
+
+                        {% for item in basket_items %}
+                            <tr>
+                                <td class="p-3 w-25">
+                                    {% if item.service.image %}
+                                        <img class="img-fluid rounded shadow-sm" src="{{ item.service.image.url }}" alt="{{ item.service.name }}">
+                                    {% else %}
+                                        <img class="img-fluid rounded shadow-sm" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.service.name }}">
+                                    {% endif %}
+                                </td>
+                                <td class="py-3">
+                                    <p class="my-0"><strong>{{ item.service.name }}</strong></p>
+                                    <p class="small text-muted">ID: {{ item.service.id }}</p>
+                                </td>
+                                <td class="py-3 text-right">
+                                    <p class="my-0">${{ item.service.price }}</p>
+                                    <a class="remove-item text-danger" id="remove-desktop_{{ item.item_id }}">
+                                        <small>Remove from basket</small>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="3" class="pt-5 text-right">
+                                <h4 class="logo-font"><strong>Basket total: ${{ grand_total|floatformat:2 }}</strong></h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-right pt-3">
+                                <a href="{% url 'services' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                                    <span class="icon"><i class="fas fa-chevron-left"></i></span>
+                                    <span class="text-uppercase">Keep looking</span>
+                                </a>
+                                <a href="#" class="btn btn-black rounded-0 btn-lg">
+                                    <span class="icon"><i class="fas fa-lock"></i></span>
+                                    <span class="text-uppercase text-white">Secure Checkout</span>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
