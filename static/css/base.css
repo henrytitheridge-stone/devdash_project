@@ -113,6 +113,14 @@ footer {
     border: 1px solid black !important;
 }
 
+.header-container {
+    padding-top: 60px;
+}
+
+.remove-item {
+    cursor: pointer;
+}
+
 /* -------------------------------- Media Queries */
 
 /* Slightly larger container on xl screens */

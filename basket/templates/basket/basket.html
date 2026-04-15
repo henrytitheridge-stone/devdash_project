@@ -22,7 +22,7 @@
 
         <div class="row">
             <div class="col-12 col-lg-8 offset-lg-2">
-                
+                {% if basket_items %}
 
                 <!-- Mobile display -->
                 <div class="d-block d-md-none text-center">
@@ -115,7 +115,36 @@
                         </tr>
                     </table>
                 </div>
+            {% else %}
+            <div class="text-center py-2">
+                <p class="lead mb-5">Your basket is empty.</p>
+                <a href="{% url 'services' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                    <span class="icon">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                    <span class="text-uppercase">Explore our services</span>
+                </a>
+            </div> 
+            {% endif %}
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script type="text/javascript">
+
+    $('.remove-item').click(function(e) {
+        var csrfToken = "{{ csrf_token }}";
+        var itemId = $(this).attr('id').split('_')[1];
+        var url = `/basket/remove/${itemId}/`;
+        var data = {'csrfmiddlewaretoken': csrfToken};
+
+        $.post(url, data)
+         .done(function() {
+             location.reload();
+         });
+    })
+</script>
 {% endblock %}
