@@ -53,6 +53,9 @@ INSTALLED_APPS = [
     'services',
     'basket',
     'checkout',
+
+    'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -66,6 +69,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'devdash.urls'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 TEMPLATES = [
     {
