@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.conf import settings
 
 from .forms import OrderForm
+from .models import Order
 from basket.contexts import basket_contents
 
 import stripe
@@ -36,4 +37,17 @@ def checkout(request):
             'client_secret': intent.client_secret,
             }
 
+    return render(request, template, context)
+
+
+def checkout_success(request, order_number):
+    """
+    Handle successful checkouts
+    """
+    order = get_object_or_404(Order, order_number=order_number)
+
+    template = 'checkout/checkout_success.html'
+    context = {
+        'order': order,
+    }
     return render(request, template, context)
