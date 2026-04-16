@@ -22,7 +22,7 @@ def checkout(request):
             'email': request.POST['email'],
             'phone_number': request.POST['phone_number'],
         }
-        
+
         order_form = OrderForm(form_data)
 
         if order_form.is_valid():
@@ -35,6 +35,8 @@ def checkout(request):
                     service=service,
                 )
                 order_line_item.save()
+
+            order.update_total()
 
             if 'basket' in request.session:
                 del request.session['basket']

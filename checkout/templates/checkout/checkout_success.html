@@ -13,7 +13,7 @@
             <div class="my-5 p-4 border border-black rounded-0 text-left">
                 <h6><strong>Order Info:</strong></h6>
                 <p class="mb-0">Order number: {{ order.order_number }}</p>
-                <p class="mb-0">Order date: {{ order.order_date }}</p>
+                <p class="mb-0">Order date: {{ order.date }}</p>
                 <hr>
                 <h6><strong>Service Details:</strong></h6>
                 {% for item in order.lineitems.all %}
@@ -22,7 +22,7 @@
                 <hr>
                 <h5 class="logo-font"><strong>Total Paid: ${{ order.grand_total }}</strong></h5>
             </div>
-            <a href="{% url 'services' %}" class="btn btn-black, rounded-0 text-uppercase">Back to services</a>
+            <a href="{% url 'services' %}" class="btn btn-black rounded-0 text-uppercase">Back to services</a>
         </div>
     </div>
 </div>
