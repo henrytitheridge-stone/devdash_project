@@ -5,6 +5,7 @@ from django.conf import settings
 from .forms import OrderForm
 from .models import Order, OrderLineItem
 from services.models import Service
+from profiles.models import UserProfile
 from basket.contexts import basket_contents
 
 import stripe
@@ -96,6 +97,11 @@ def checkout_success(request, order_number):
     Handle successful checkouts
     """
     order = get_object_or_404(Order, order_number=order_number)
+
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user=request.user)
+        order.user_profile = profile
+        order.save()
 
     template = 'checkout/checkout_success.html'
     context = {
