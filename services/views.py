@@ -80,3 +80,16 @@ def edit_service(request, service_id):
     }
 
     return render(request, template, context)
+
+
+@login_required
+def delete_service(request, service_id):
+
+    if not request.user.is_superuser:
+        # messages.error(request, 'Sorry, only store owners can do that.')
+        return redirect(reverse('home'))
+
+    service = get_object_or_404(Service, pk=service_id)
+    service.delete()
+    # messages.success(request, 'Product deleted!')
+    return redirect(reverse('services'))
