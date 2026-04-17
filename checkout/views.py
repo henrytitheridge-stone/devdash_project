@@ -60,6 +60,8 @@ def checkout(request):
 
             order.update_total()
 
+            request.session['save_info'] = 'save-info' in request.POST
+
             if 'basket' in request.session:
                 del request.session['basket']
 
@@ -70,17 +72,28 @@ def checkout(request):
         if not basket:
             return redirect(reverse('services'))
 
-    current_basket = basket_contents(request)
-    total = current_basket['grand_total']
-    stripe_total = round(total * 100)
-    stripe.api_key = stripe_secret_key
+        current_basket = basket_contents(request)
+        total = current_basket['grand_total']
+        stripe_total = round(total * 100)
+        stripe.api_key = stripe_secret_key
 
-    intent = stripe.PaymentIntent.create(
-        amount=stripe_total,
-        currency=settings.STRIPE_CURRENCY,
-    )
+        intent = stripe.PaymentIntent.create(
+            amount=stripe_total,
+            currency=settings.STRIPE_CURRENCY,
+        )
 
-    order_form = OrderForm()
+        if request.user.is_authenticated:
+            try:
+                profile = UserProfile.objects.get(user=request.user)
+                order_form = OrderForm(initial={
+                    'full_name': profile.user.get_full_name(),
+                    'email': profile.user.email,
+                    'phone_number': profile.default_phone_number,
+                })
+            except UserProfile.DoesNotExist:
+                order_form = OrderForm()
+        else:
+            order_form = OrderForm()
 
     template = 'checkout/checkout.html'
     context = {
