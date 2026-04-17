@@ -29,7 +29,7 @@ def service_detail(request, service_id):
 
 
 @login_required
-def add_product(request):
+def add_service(request):
 
     if not request.user.is_superuser:
         # messages.error(request, 'Sorry, only store owners can do that.')
@@ -45,7 +45,7 @@ def add_product(request):
     else:
         form = ServiceForm()
 
-    template = 'service/add_service.html'
+    template = 'services/add_service.html'
     context = {
         'form': form,
     }
