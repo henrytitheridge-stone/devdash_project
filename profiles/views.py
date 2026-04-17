@@ -29,6 +29,7 @@ def profile(request):
     context = {
         'form': form,
         'orders': orders,
+        'profile': profile,
         'on_profile_page': True
     }
 
