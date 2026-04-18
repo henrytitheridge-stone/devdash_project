@@ -12,7 +12,7 @@ def index(request):
 
 
 def newsletter_signup(request):
-    """ 
+    """
     Processes newsletter subscription requests. 
     Checks for existing subscribers to prevent duplicate entries.
     """

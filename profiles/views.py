@@ -11,7 +11,10 @@ from checkout.models import Order
 # Create your views here.
 @login_required
 def profile(request):
-    """ Display the user's profile. """
+    """
+    Display the user's profile.
+    Allows CRUD for contact info and lists past orders.
+    """
     profile = get_object_or_404(UserProfile, user=request.user)
 
     if request.method == 'POST':
@@ -37,6 +40,11 @@ def profile(request):
 
 
 def order_history(request, order_number):
+    """
+    Displays a past order confirmation to the user.
+    Re-uses the checkout_success template to 
+    verify the transaction details for the user.
+    """
     order = get_object_or_404(Order, order_number=order_number)
 
     messages.info(request, (
