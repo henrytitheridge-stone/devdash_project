@@ -2,6 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block page_header %}
+    <!-- Spacing container to prevent content hiding behind fixed header -->
     <div class="container header-container">
         <div class="row">
             <div class="col"></div>
@@ -12,10 +13,13 @@
 {% block content %}
 <div class="container py-5">
     <div class="row">
+        <!-- Centres the form on the page -->
         <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
             <h2 class="logo-font mb-4 text-center">Contact DevDash</h2>
             <p class="text-muted text-center">Have a question about an audit? Drop us an enquiry below.</p>
             <hr>
+
+            <!-- Bootstrapped form for users to send messages to the site owners -->
             <form method="POST" action="{% url 'contact' %}" class="form mb-2">
                 {% csrf_token %}
                 {{ form|crispy }}
