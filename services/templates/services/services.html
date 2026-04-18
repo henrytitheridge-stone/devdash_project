@@ -15,9 +15,11 @@
         <div class="row">
             <div class="service-container col-10 offset-1">
                 <div class="row">
+                    <!-- Display all 3 services from the db in a responsive grid -->
                     {% for service in services %}
                     <div class="col-12 col-md-6 col-lg-4 mb-5">
                         <div class="card h-100 border-0 shadow-sm">
+                            <!-- Clickable image leading to each service detail page  -->
                             {% if service.image %}
                                 <a href="{% url 'service_detail' service.id %}">
                                     <img class="card-img-top img-fluid" src="{{ service.image.url }}" alt="{{ service.name }}">
@@ -27,6 +29,7 @@
                                     <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ service.name }}">
                                 </a>
                             {% endif %}
+                                <!-- Display info and price -->
                                 <div class="card-body pb-0 text-center">
                                     <p class="mb-0 font-weight-bold logo-font text-black">{{ service.name }}</p>
                                     <p class="small text-muted mt-2">{{ service.description }}</p>

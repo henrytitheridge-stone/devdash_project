@@ -28,11 +28,13 @@
                 <p class="text-muted small text-uppercase">Default Contact Information</p>
                 <form class="mt-3" action="{% url 'profile' %}" method="POST" id="profile-update-form">
                     {% csrf_token %}
+
                     <!-- Display non-editable email for reference -->
                     <div class="mb-3">
                         <label class="small text-muted">Email</label>
                         <p class="form-control-plaintext border-bottom">{{ profile.user.email }}</p>
                     </div>
+
                     <!-- Editable phone number field -->
                     {{ form|crispy }}
                     <button class="btn btn-black rounded-0 text-uppercase float-right">Update Information</button>

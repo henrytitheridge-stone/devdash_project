@@ -3,6 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block page_header %}
+    <!-- Spacing container to prevent content hiding behind fixed header -->
     <div class="container header-container">
         <div class="row">
             <div class="col"></div>
@@ -23,7 +24,10 @@
         </div>
 
         <div class="row">
+            <!-- Frontend form for admin to add a new service to the db -->
             <div class="col-12 col-md-6">
+
+                <!-- 'enctype' facilitates image file uploads -->
                 <form method="POST" action="{% url 'add_service' %}" class="form mb-2" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for field in form %}
@@ -45,6 +49,8 @@
 
 {% block postloadjs %}
     {{ block.super }}
+
+    <!-- User sees image file name displayed, confirming upload -->
     <script type="text/javascript">
         $('#new-image').change(function() {
             var file = $('#new-image')[0].files[0];
