@@ -1,3 +1,6 @@
+<!-- Displays positive feedback messages and a basket summary
+  to track current total -->
+
 <div class="toast custom-toast rounded-0 border-top 0" data-autohide="false">
     <div class="arrow-up arrow-success"></div>
     <div class="w-100 toast-capper bg-success"></div>
@@ -8,12 +11,15 @@
         </button>
     </div>
     <div class="toast-body bg-white">
+        <!-- The specific success message from the view -->
         <div class="row">
             <div class="col">
                 {{ message }}
                 <hr class="mt-1 mb-3">
             </div>
         </div>
+
+        <!-- If items are in the basket, show a small preview and checkout button -->
         {% if grand_total and not on_profile_page %}
             <p class="logo-font bg-white text-black py-1">Your Basket ({{ service_count }})</p>
             <div class="basket-notification-wrapper">
