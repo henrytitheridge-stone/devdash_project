@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /checkout/
+Disallow: /profiles/
+Sitemap: https://devdash-project-46fe4773a978.herokuapp.com/sitemap.xml
