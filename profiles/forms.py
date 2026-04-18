@@ -4,7 +4,7 @@ from .models import UserProfile
 
 class UserProfileForm(forms.ModelForm):
     """
-    A form to allow users to maintain and update their default 
+    A form to allow users to maintain and update their default
     contact information on their profile page.
     """
     class Meta:

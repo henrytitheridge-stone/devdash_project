@@ -7,9 +7,10 @@ from django.dispatch import receiver
 # Create your models here.
 class UserProfile(models.Model):
     """
-    An extension of the Django User model to store 
+    An extension of the Django User model to store
     default contact information and order history.
     """
+    # Each user can only have one profile, which is deleted if the user is deleted
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     default_phone_number = models.CharField(max_length=20, null=True, blank=True)
 
@@ -20,11 +21,12 @@ class UserProfile(models.Model):
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
     """
-    Handles automatic creation/update of a user profile 
+    Handles automatic creation/update of a user profile
     whenever a User object is created or saved.
     """
     if created:
         UserProfile.objects.create(user=instance)
 
+    # Update the profile for existing users
     if hasattr(instance, 'userprofile'):
         instance.userprofile.save()

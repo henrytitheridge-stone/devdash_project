@@ -19,6 +19,7 @@ def newsletter_signup(request):
     if request.method == 'POST':
         email = request.POST.get('email')
 
+        # Check db for existing email to notify the user of subscription status
         if Subscriber.objects.filter(email=email).exists():
             messages.info(request, 'You are already subscribed!')
             return redirect(request.META.get('HTTP_REFERER', 'home'))

@@ -21,7 +21,7 @@ class SubscriberForm(forms.ModelForm):
 class EnquiryForm(forms.ModelForm):
     """
     Form for the contact page.
-    Allows users to send messages which are saved as Enquiry instances 
+    Allows users to send messages which are saved as Enquiry instances
     for administrative follow-up.
     """
     class Meta:

@@ -24,6 +24,7 @@ class Enquiry(models.Model):
     date_sent = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        # Correct plural spelling for the admin panel
         verbose_name_plural = "Enquiries"
 
     def __str__(self):
