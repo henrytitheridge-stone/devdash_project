@@ -1,20 +1,31 @@
+<!-- Provides links to all primary site sections,
+ ensuring all pages are findable -->
+
 <div class="collapse navbar-collapse" id="main-nav">
     <ul class="navbar-nav w-auto mx-auto">
+
+        <!-- Mobile-only home link for better navigation on small screens -->
         <li class="nav-item d-block d-md-none">
             <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'home' %}" id="home-link">
                 Home
             </a>
         </li>
+
+        <!-- Direct link to the audit service 'storefront' -->
         <li class="nav-item">
             <a class="logo-font font-weight-bold nav-link text-black mr-lg-5" href="{% url 'services' %}">
                 Services
             </a>
         </li>
+
+        <!-- Direct link to the enquiry form -->
         <li class="nav-item">
             <a class="logo-font font-weight-bold nav-link text-black mr-lg-5" href="{% url 'contact' %}">
                 Contact Us
             </a>
         </li>
+
+        <!-- Anchor link to the marketing signup in the footer -->
         <li class="nav-item">
             <a class="logo-font font-weight-bold nav-link text-black" href="#newsletter-footer">
                 Newsletter

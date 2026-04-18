@@ -47,17 +47,16 @@
   </head>
 
   <body>
+    <!-- Site header, navigation, account options and basket summary -->
     <header class="container-fluid fixed-top">
         <div id="topnav" class="row bg-white py-0 d-none d-lg-flex shadow-sm">
-
-            <!-- Logo column -->
             <div class="col-12 col-lg-6 my-auto py-1 py-lg-0 text-center text-lg-left">
                 <a href="{% url 'home' %}" class="nav-link main-logo-link">
                     <h2 class="logo-font text-black my-0"><strong>Dev</strong>Dash</h2>
                 </a>
             </div>
 
-            <!-- Account/basket column -->
+            <!-- User authentication and role-based options -->
             <div class="col-12 col-lg-6 my-auto py-1 py-lg-0">
                 <ul class="list-inline list-unstyled text-center text-lg-right my-0">
                     <li class="list-inline-item dropdown">
@@ -67,8 +66,6 @@
                                 <p class="my-0">My Account</p>
                             </div>
                         </a>
-
-                        <!-- Login/register dropdown logic -->
                         <div class="dropdown-menu border-0" aria-labelledby="user-options">
                             {% if request.user.is_authenticated %}
                                 {% if request.user.is_superuser %}
@@ -83,7 +80,7 @@
                         </div>
                     </li>
 
-                    <!-- Basket -->
+                    <!-- Real-time basket summary -->
                     <li class="list-inline-item">
                         <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'view_basket' %}">
                             <div class="text-center">
@@ -102,7 +99,7 @@
             </div>
         </div>
 
-        <!-- Navbar -->
+        <!-- Responsive navbar including burger dropdown -->
         <div class="row bg-white">
             <nav class="navbar navbar-expand-lg navbar-light w-100 py-0">
                 <button class="navbar-toggler ml-2" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,6 +111,7 @@
         </div>
     </header>
 
+    <!-- Message system for user feedback via toasts -->
     {% if messages %}
         <div class="message-container">
             {% for message in messages %}
@@ -143,6 +141,8 @@
     {% include 'includes/footer.html' %}
     
     {% block postloadjs %}
+
+    <!-- Script to initialise bootstrap toasts on page load -->
     <script type="text/javascript">
         $('.toast').toast('show');
     </script>
