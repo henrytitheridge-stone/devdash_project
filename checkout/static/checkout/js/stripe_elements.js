@@ -6,10 +6,13 @@
     https://stripe.com/docs/stripe-js
 */
 
+// Extract Stripe keys from the template variables
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 var clientSecret = $('#id_client_secret').text().slice(1, -1);
 var stripe = Stripe(stripePublicKey);
 var elements = stripe.elements();
+
+// Custom styling for the Stripe card element
 var style = {
     base: {
         color: '#000',
@@ -25,6 +28,8 @@ var style = {
         iconColor: '#dc3545'
     }
 };
+
+// Create and mount the Stripe card element
 var card = elements.create('card', {style: style});
 card.mount('#card-element');
 
@@ -44,14 +49,17 @@ card.addEventListener('change', function (event) {
     }
 });
 
-// Handle form submit
+// Handle form submission
 var form = document.getElementById('payment-form')
 
 form.addEventListener('submit', function(ev) {
     ev.preventDefault();
+
+    // Disable card input and submit button to prevent multiple charges
     card.update({ 'disabled': true});
     $('#submit-button').attr('disabled', true);
  
+    // Prepare data to send to the cache_checkout_data view
     var postData = {
         'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
         'client_secret': clientSecret,
@@ -59,7 +67,10 @@ form.addEventListener('submit', function(ev) {
 
     var url = '/checkout/cache_checkout_data/';
 
+    // Update the payment intent metadata
     $.post(url, postData).done(function () {
+
+        // And confirm the payment with Stripe
         stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: card,
@@ -71,15 +82,21 @@ form.addEventListener('submit', function(ev) {
             }
         }).then(function(result){
             if (result.error) {
+
+                // If Stripe returns an error, re-enable form for user to fix
                 card.update({ 'disabled': false});
                 $('#submit-button').attr('disabled', false);
             } else {
+
+                // If payment succeeds, submit hidden form to create order
                 if (result.paymentIntent.status === 'succeeded') {
                     form.submit();
                 }
             }
         });
     }).fail(function () {
+
+        // If the initial post fails, reload the page
         location.reload();
     })
 });

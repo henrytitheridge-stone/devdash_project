@@ -30,14 +30,18 @@ class StripeWH_Handler:
         pid = intent.id
         basket = intent.metadata.basket
 
+        # Retrieve the charge object to get billing details
         stripe_charge = stripe.Charge.retrieve(
             intent.latest_charge
         )
         billing_details = stripe_charge.billing_details
         grand_total = round(stripe_charge.amount / 100, 2)
 
+        # Check if the order was already created by the view
         order_exists = False
         attempt = 1
+
+        # The while loop allows for a delay in case the view is slow to save
         while attempt <= 5:
             try:
                 order = Order.objects.get(
@@ -56,10 +60,12 @@ class StripeWH_Handler:
 
         if order_exists:
             # self._send_confirmation_email(order)
+            # If the view has handled and recorded the order, return success to Stripe
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
                 status=200)
         else:
+            # If the order doesn't exist after 5 attempts, create it here from metadata
             order = None
             try:
                 order = Order.objects.create(
@@ -69,6 +75,8 @@ class StripeWH_Handler:
                     original_basket=basket,
                     stripe_pid=pid,
                 )
+
+                # Reconstruct the order items from the JSON metadata
                 for item_id in json.loads(basket).keys():
                     service = Service.objects.get(id=item_id)
                     OrderLineItem.objects.create(

@@ -21,8 +21,11 @@ def cache_checkout_data(request):
     Allows for recovery of orders if the user's connection drops.
     """
     try:
+        # Extract payment intent ID from client secret
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
+
+        # Add metadata to Stripe intent to make data save in webhooks
         stripe.PaymentIntent.modify(pid, metadata={
             'basket': json.dumps(request.session.get('basket', {})),
             'save_info': request.POST.get('save_info'),
@@ -55,12 +58,15 @@ def checkout(request):
         order_form = OrderForm(form_data)
 
         if order_form.is_valid():
+
+            # Prevent multiple saves while adding data manually
             order = order_form.save(commit=False)
             pid = request.POST.get('client_secret').split('_secret')[0]
             order.stripe_pid = pid
             order.original_basket = json.dumps(basket)
             order.save()
 
+            # Iterate through basket to create line items
             for item_id in basket.keys():
                 service = Service.objects.get(id=item_id)
                 order_line_item = OrderLineItem(
@@ -69,8 +75,10 @@ def checkout(request):
                 )
                 order_line_item.save()
 
+            # Trigger calculation of the total in the model
             order.update_total()
 
+            # Store the 'save info' preference to be handled in success view
             request.session['save_info'] = 'save-info' in request.POST
 
             return redirect(reverse('checkout_success', args=[order.order_number]))
@@ -78,21 +86,25 @@ def checkout(request):
             messages.error(request, 'There was an error with your form. \
                 Please double check your information.')
     else:
+        # Handle GET request
         basket = request.session.get('basket', {})
         if not basket:
             messages.error(request, "There's nothing in your basket at the moment")
             return redirect(reverse('services'))
 
+        # Prep totals for Stripe in cents 
         current_basket = basket_contents(request)
         total = current_basket['grand_total']
         stripe_total = round(total * 100)
         stripe.api_key = stripe_secret_key
 
+        # Create payment intent for JS
         intent = stripe.PaymentIntent.create(
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY,
         )
 
+        # Pre-fill form with profile data for logged in users
         if request.user.is_authenticated:
             try:
                 profile = UserProfile.objects.get(user=request.user)
@@ -123,13 +135,15 @@ def checkout_success(request, order_number):
     """
     order = get_object_or_404(Order, order_number=order_number)
 
+    # Attach profile to order if user was logged in
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
         order.user_profile = profile
         order.save()
 
+    # Empty session basket once payment is confirmed
     if 'basket' in request.session:
-                del request.session['basket']
+        del request.session['basket']
 
     template = 'checkout/checkout_success.html'
     context = {
