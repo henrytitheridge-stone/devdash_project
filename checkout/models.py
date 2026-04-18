@@ -7,7 +7,10 @@ from services.models import Service
 
 # Create your models here.
 class Order(models.Model):
-
+    """
+    Main order model for storing transactional data.
+    Linked to user profile to record order history.
+    """
     order_number = models.CharField(max_length=32, null=False, editable=False)
     user_profile = models.ForeignKey('profiles.UserProfile', on_delete=models.SET_NULL,
                                      null=True, blank=True, related_name='orders')
@@ -46,7 +49,10 @@ class Order(models.Model):
 
 
 class OrderLineItem(models.Model):
-
+    """
+    A line item representing a specific service within an order.
+    Calculates subtotals for the parent order model.
+    """
     order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitems')
     service = models.ForeignKey(Service, null=False, blank=False, on_delete=models.CASCADE)
     lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)

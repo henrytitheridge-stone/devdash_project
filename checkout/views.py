@@ -16,12 +16,16 @@ import json
 # Create your views here.
 @require_POST
 def cache_checkout_data(request):
+    """
+    Temporary storage of checkout data in the Stripe PaymentIntent.
+    Allows for recovery of orders if the user's connection drops.
+    """
     try:
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
             'basket': json.dumps(request.session.get('basket', {})),
-            # 'save_info': request.POST.get('save_info'),
+            'save_info': request.POST.get('save_info'),
             'username': request.user,
         })
         return HttpResponse(status=200)
@@ -32,6 +36,10 @@ def cache_checkout_data(request):
 
 
 def checkout(request):
+    """
+    Core view for processing payments.
+    Handles form validation, Stripe intent creation, and order saving.
+    """
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
@@ -64,9 +72,6 @@ def checkout(request):
             order.update_total()
 
             request.session['save_info'] = 'save-info' in request.POST
-
-            if 'basket' in request.session:
-                del request.session['basket']
 
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:
@@ -113,7 +118,8 @@ def checkout(request):
 
 def checkout_success(request, order_number):
     """
-    Handle successful checkouts
+    Finalises the transaction. 
+    Links the order to the user's profile and clears the session basket.
     """
     order = get_object_or_404(Order, order_number=order_number)
 
@@ -121,6 +127,9 @@ def checkout_success(request, order_number):
         profile = UserProfile.objects.get(user=request.user)
         order.user_profile = profile
         order.save()
+
+    if 'basket' in request.session:
+                del request.session['basket']
 
     template = 'checkout/checkout_success.html'
     context = {
