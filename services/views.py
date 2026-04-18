@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .models import Service
 from .forms import ServiceForm
 
@@ -32,16 +33,17 @@ def service_detail(request, service_id):
 def add_service(request):
 
     if not request.user.is_superuser:
-        # messages.error(request, 'Sorry, only store owners can do that.')
+        messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
 
     if request.method == 'POST':
         form = ServiceForm(request.POST, request.FILES)
         if form.is_valid():
             service = form.save()
-
+            messages.success(request, 'Successfully added service!')
             return redirect(reverse('service_detail', args=[service.id]))
-
+        else:
+            messages.error(request, 'Failed to add service. Please ensure the form is valid.')
     else:
         form = ServiceForm()
 
@@ -57,7 +59,7 @@ def add_service(request):
 def edit_service(request, service_id):
 
     if not request.user.is_superuser:
-        # messages.error(request, 'Sorry, only store owners can do that.')
+        messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
 
     service = get_object_or_404(Service, pk=service_id)
@@ -65,13 +67,13 @@ def edit_service(request, service_id):
         form = ServiceForm(request.POST, request.FILES, instance=service)
         if form.is_valid():
             form.save()
-            # messages.success(request, 'Successfully updated product!')
+            messages.success(request, 'Successfully updated service!')
             return redirect(reverse('service_detail', args=[service.id]))
-        # else:
-            messages.error(request, 'Failed to update product. Please ensure the form is valid.')
+        else:
+            messages.error(request, 'Failed to update service. Please ensure the form is valid.')
     else:
         form = ServiceForm(instance=service)
-        # messages.info(request, f'You are editing {product.name}')
+        messages.info(request, f'You are editing {service.name}')
 
     template = 'services/edit_service.html'
     context = {
@@ -86,10 +88,10 @@ def edit_service(request, service_id):
 def delete_service(request, service_id):
 
     if not request.user.is_superuser:
-        # messages.error(request, 'Sorry, only store owners can do that.')
+        messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
 
     service = get_object_or_404(Service, pk=service_id)
     service.delete()
-    # messages.success(request, 'Product deleted!')
+    messages.success(request, 'Service deleted!')
     return redirect(reverse('services'))

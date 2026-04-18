@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from .forms import SubscriberForm, EnquiryForm
-from .models import Subscriber, Enquiry
 
 
 # Create your views here.
@@ -31,6 +30,6 @@ def contact(request):
             form.save()
             messages.success(request, 'Enquiry sent! We will be in touch soon.')
             return redirect(reverse('home'))
-    
+
     form = EnquiryForm()
     return render(request, 'home/contact.html', {'form': form})
