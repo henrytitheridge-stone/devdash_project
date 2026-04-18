@@ -118,7 +118,7 @@ def checkout(request):
 
 def checkout_success(request, order_number):
     """
-    Finalises the transaction. 
+    Finalises the transaction.
     Links the order to the user's profile and clears the session basket.
     """
     order = get_object_or_404(Order, order_number=order_number)

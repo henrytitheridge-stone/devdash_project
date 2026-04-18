@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from .forms import SubscriberForm, EnquiryForm
+from .models import Subscriber
 
 
 # Create your views here.
@@ -11,8 +12,17 @@ def index(request):
 
 
 def newsletter_signup(request):
-    """ Handle newsletter subscriptions """
+    """ 
+    Processes newsletter subscription requests. 
+    Checks for existing subscribers to prevent duplicate entries.
+    """
     if request.method == 'POST':
+        email = request.POST.get('email')
+
+        if Subscriber.objects.filter(email=email).exists():
+            messages.info(request, 'You are already subscribed!')
+            return redirect(request.META.get('HTTP_REFERER', 'home'))
+
         form = SubscriberForm(request.POST)
         if form.is_valid():
             form.save()
@@ -22,8 +32,12 @@ def newsletter_signup(request):
 
     return redirect(request.META.get('HTTP_REFERER', 'home'))
 
+
 def contact(request):
-    """ View for enquiry form """
+    """
+    Handles user inquiries via the EnquiryForm.
+    Saves data to the Enquiry model for admin review.
+    """
     if request.method == 'POST':
         form = EnquiryForm(request.POST)
         if form.is_valid():
