@@ -3,6 +3,11 @@ from .models import Order
 
 
 class OrderForm(forms.ModelForm):
+    """
+    Form for the checkout process. 
+    Captures essential contact information to 
+    create a successful Order instance.
+    """
     class Meta:
         model = Order
         fields = ('full_name', 'email', 'phone_number',)

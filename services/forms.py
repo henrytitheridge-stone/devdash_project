@@ -3,7 +3,9 @@ from .models import Service
 
 
 class ServiceForm(forms.ModelForm):
-
+    """
+    Administrative services form for frontend CRUD.
+    """
     class Meta:
         model = Service
         fields = '__all__'

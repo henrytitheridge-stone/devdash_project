@@ -7,7 +7,7 @@ from .forms import ServiceForm
 
 # Create your views here.
 def all_services(request):
-
+    """ A view to show all services, including sorting and search queries """
     services = Service.objects.all()
 
     context = {
@@ -31,9 +31,10 @@ def service_detail(request, service_id):
 
 @login_required
 def add_service(request):
+    """ Add a service to the site (superusers only) """
 
     if not request.user.is_superuser:
-        messages.error(request, 'Sorry, only store owners can do that.')
+        messages.error(request, 'Sorry, only site owners can do that.')
         return redirect(reverse('home'))
 
     if request.method == 'POST':
@@ -57,9 +58,10 @@ def add_service(request):
 
 @login_required
 def edit_service(request, service_id):
+    """ Edit an existing service in the site (superusers only) """
 
     if not request.user.is_superuser:
-        messages.error(request, 'Sorry, only store owners can do that.')
+        messages.error(request, 'Sorry, only site owners can do that.')
         return redirect(reverse('home'))
 
     service = get_object_or_404(Service, pk=service_id)
@@ -86,6 +88,7 @@ def edit_service(request, service_id):
 
 @login_required
 def delete_service(request, service_id):
+    """ Remove an existing service from the site (superusers only) """
 
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')

@@ -5,7 +5,10 @@ from services.models import Service
 
 # Create your views here.
 def add_to_basket(request, item_id):
-
+    """
+    Add a specific service to the shopping basket.
+    Updates the session with the service ID.
+    """
     service = Service.objects.get(pk=item_id)
 
     redirect_url = request.POST.get('redirect_url')
@@ -22,13 +25,18 @@ def add_to_basket(request, item_id):
 
 
 def view_basket(request):
-    
-
+    """
+    A view that renders the basket contents page. 
+    Allows users to see the services they intend to purchase before checkout.
+    """
     return render(request, 'basket/basket.html')
 
 
 def remove_from_basket(request, item_id):
-
+    """
+    Remove a service from the shopping basket.
+    Updates the session to reflect the removal of the service ID.
+    """
     try:
 
         basket = request.session.get('basket', {})

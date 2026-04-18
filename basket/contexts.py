@@ -3,7 +3,10 @@ from services.models import Service
 
 
 def basket_contents(request):
-
+    """
+    A context processor to make basket data available across the entire site.
+    Calculates totals and item counts for the nav bar and success toasts.
+    """
     basket_items = []
     total = 0
     service_count = 0

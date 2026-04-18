@@ -3,6 +3,10 @@ from .models import Subscriber, Enquiry
 
 
 class SubscriberForm(forms.ModelForm):
+    """
+    Form for the newsletter subscription.
+    Captures user email addresses to be stored in the Subscriber model.
+    """
     class Meta:
         model = Subscriber
         fields = ('email',)
@@ -15,6 +19,11 @@ class SubscriberForm(forms.ModelForm):
 
 
 class EnquiryForm(forms.ModelForm):
+    """
+    Form for the contact page.
+    Allows users to send messages which are saved as Enquiry instances 
+    for administrative follow-up.
+    """
     class Meta:
         model = Enquiry
         fields = ('name', 'email', 'subject', 'message')
