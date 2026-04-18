@@ -1,24 +1,11 @@
+/* ------------------------------ General styles */
 html {
     height: 100%;
     overflow-x: hidden;
     scroll-behavior: smooth;
 }
 
-#topnav {
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
-}
-
-.navbar {
-    min-height: 50px;
-    padding: 0 !important;
-}
-
-.hero-text {
-    font-size: 1.6rem;
-    line-height: 1.3;
-}
-
+/* Sticky footer, body set up as flex container */
 body {
     background-color: #fff;
     color: #555;
@@ -30,19 +17,7 @@ body {
     overflow-x: hidden;
 }
 
-.hero-bg {
-    background: url('/media/homepage_background_cropped.jpg') no-repeat center center fixed;
-    background-size: cover;
-    width: 100%;
-}
-
-.hero-container {
-    min-height: calc(100vh - 110px);
-    display: flex;
-    align-items: center;
-    padding-top: 75px;
-}
-
+/* Main content area should expand to push the footer down */
 main {
     flex: 1 0 auto;
 }
@@ -55,7 +30,37 @@ footer {
     width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
-    flex-shrink: 0;
+    flex-shrink: 0;  /* prevents footer from squashing on short pages */
+}
+
+/* ------------------------------ Navigation & Hero */
+#topnav {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+.navbar {
+    min-height: 50px;
+    padding: 0 !important;
+}
+
+/* Hero background, conditional class for set pages */
+.hero-bg {
+    background: url('/media/homepage_background_cropped.jpg') no-repeat center center fixed;
+    background-size: cover;
+    width: 100%;
+}
+
+.hero-text {
+    font-size: 1.6rem;
+    line-height: 1.3;
+}
+
+.hero-container {
+    min-height: calc(100vh - 110px);
+    display: flex;
+    align-items: center;
+    padding-top: 75px;
 }
 
 /* from Bulma */
@@ -75,6 +80,7 @@ footer {
     width: fit-content;
 }
 
+/* ------------------------------ Buttons & Links */
 .btn-black {
     background: black;
     color: white;
@@ -110,22 +116,7 @@ footer {
     color: white;
 }
 
-.text-black {
-    color: #000 !important;
-}
-
-.border-black {
-    border: 1px solid black !important;
-}
-
-.header-container {
-    padding-top: 60px;
-}
-
-.remove-item {
-    cursor: pointer;
-}
-
+/* ------------------------------ Toasts & Messages */
 .message-container {
     position: fixed;
     top: 72px;
@@ -140,6 +131,26 @@ footer {
 .toast-capper {
     height: 2px;
 }
+
+/* ------------------------------ Utility classes */
+.text-black {
+    color: #000 !important;
+}
+
+.border-black {
+    border: 1px solid black !important;
+}
+
+/* Common container for page titles and content spacing */
+.header-container {
+    padding-top: 60px;
+}
+
+/* Interactive elements */
+.remove-item {
+    cursor: pointer;
+}
+
 
 /* from CSS-tricks.com: https://css-tricks.com/snippets/css/css-triangle/ */
 .arrow-up {
@@ -186,6 +197,7 @@ footer {
     border-bottom-color: #343a40 !important;
 }
 
+/* Scrollable wrapper for the mini-basket preview in success toasts */
 .basket-notification-wrapper {
     height: 100px;
     overflow-x: hidden;

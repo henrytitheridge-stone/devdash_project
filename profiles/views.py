@@ -28,7 +28,7 @@ def profile(request):
     else:
         # Initialise form with existing profile data
         form = UserProfileForm(instance=profile)
-    
+
     # Collect all orders linked to this profile
     orders = profile.orders.all()
 
@@ -47,7 +47,7 @@ def profile(request):
 def order_history(request, order_number):
     """
     Displays a past order confirmation to the user.
-    Re-uses the checkout_success template to 
+    Re-uses the checkout_success template to
     verify the transaction details for the user.
     """
     order = get_object_or_404(Order, order_number=order_number)
