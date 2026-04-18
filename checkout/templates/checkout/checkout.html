@@ -3,6 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block page_header %}
+    <!-- Spacing container to prevent content hiding behind fixed header -->
     <div class="container header-container">
         <div class="row">
             <div class="col"></div>
@@ -24,6 +25,7 @@
         <div class="row">
             <div class="col-12 col-lg-8 offset-lg-2">
                 <div class="row">
+                    <!-- Summary to show the user what they're about to buy -->
                     <div class="col-12 col-lg-6 order-lg-last mb-5">
                         <p class="text-muted small">Selection summary ({{ basket_items|length }})</p>
                         {% for item in basket_items %}
@@ -54,6 +56,8 @@
                     <div class="col-12 col-lg-6">
                         <div class="col-12">
                             <p class="text-muted small">Please enter your details below</p>
+
+                            <!-- Checkout form, engaging Stripe payment system -->
                             <form action="{% url 'checkout' %}" method="POST" id="payment-form">
                                 {% csrf_token %}
                                 <fieldset class="px-0 mb-5 border-0">
@@ -61,6 +65,8 @@
                                     {{ order_form.full_name|as_crispy_field }}
                                     {{ order_form.email|as_crispy_field }}
                                     {{ order_form.phone_number|as_crispy_field }}
+
+                                    <!-- Logged in users shown a checkbox to save their details for next time -->
                                     <div class="form-check form-check-inline float-right mr-0">
 							            {% if user.is_authenticated %}
 								            <label class="form-check-label" for="id-save-info">Save contact info to my profile</label>
@@ -76,8 +82,10 @@
 
                                 <fieldset class="px-3">
                                     <legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
+                                    
                                     <!-- A Stripe card element will go here -->
                                     <div class="mb-3" id="card-element"></div>
+                                    
                                     <!-- Used to display form errors -->
                                     <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
                                     <input type="hidden" value="{{ client_secret }}" name="client_secret">
@@ -106,6 +114,8 @@
 
 {% block postloadjs %}
     {{ block.super }}
+
+    <!-- Sending secure Stripe keys to JS file for security -->
     {{ stripe_public_key|json_script:"id_stripe_public_key" }}
     {{ client_secret|json_script:"id_client_secret" }}
     <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>

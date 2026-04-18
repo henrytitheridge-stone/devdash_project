@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block page_header %}
+    <!-- Spacing container to prevent content hiding behind fixed header -->
     <div class="container header-container">
         <div class="row">
             <div class="col"></div>
@@ -116,6 +117,7 @@
                     </table>
                 </div>
             {% else %}
+            <!-- Empty state with clear call to action -->
             <div class="text-center py-2">
                 <p class="lead mb-5">Your basket is empty.</p>
                 <a href="{% url 'services' %}" class="btn btn-outline-black rounded-0 btn-lg">
@@ -135,6 +137,7 @@
 {{ block.super }}
 <script type="text/javascript">
 
+    // Handles the removal of items, posts the updated basket data and relaods the page
     $('.remove-item').click(function(e) {
         var csrfToken = "{{ csrf_token }}";
         var itemId = $(this).attr('id').split('_')[1];
