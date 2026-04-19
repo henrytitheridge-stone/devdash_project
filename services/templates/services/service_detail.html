@@ -15,19 +15,7 @@
     <div class="overlay"></div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
-                <div class="image-container my-5">
-                    {% if service.image %}
-                        <a href="{{ service.image.url }}" target="_blank">
-                            <img class="card-img-top img-fluid" src="{{ service.image.url }}" alt="{{ service.name }}">
-                        </a>
-                        {% else %}
-                        <a href="">
-                            <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ service.name }}">
-                        </a>
-                    {% endif %}
-                </div>
-            </div>
+            
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="service-details-container mb-5 mt-md-5">
                     <h2 class="mb-0 logo-font text-black">{{ service.name }}</h2>

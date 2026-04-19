@@ -17,6 +17,7 @@ body {
 
 main {
     flex: 1 0 auto;
+    min-height: 100vh;
     padding-top: 120px; /* Space for fixed-top header */
 }
 
@@ -86,6 +87,24 @@ main {
 .btn-outline-black:hover {
     background: #000;
     color: #fff !important;
+}
+
+/* Service Cards */
+.card {
+    border: 2px solid #000000 !important;
+    border-radius: 0; 
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+/* Make the cards lift slightly when hovered */
+.card:hover {
+    box-shadow: 8px 8px 0px 0px rgba(0,0,0,1); /* Professional 'Brutalist' shadow */
+    transition: 0.3s ease-in-out;
 }
 
 /* --- Footer --- */

@@ -19,19 +19,12 @@
                     {% for service in services %}
                     <div class="col-12 col-md-6 col-lg-4 mb-5">
                         <div class="card h-100 border-0 shadow-sm">
-                            <!-- Clickable image leading to each service detail page  -->
-                            {% if service.image %}
-                                <a href="{% url 'service_detail' service.id %}">
-                                    <img class="card-img-top img-fluid" src="{{ service.image.url }}" alt="{{ service.name }}">
-                                </a>
-                            {% else %}
-                                <a href="{% url 'service_detail' service.id %}">
-                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ service.name }}">
-                                </a>
-                            {% endif %}
+                            
                                 <!-- Display info and price -->
                                 <div class="card-body pb-0 text-center">
-                                    <p class="mb-0 font-weight-bold logo-font text-black">{{ service.name }}</p>
+                                    <a href="{% url 'service_detail' service.id %}" class="text-decoration-none">
+                                        <p class="mb-0 font-weight-bold logo-font text-black">{{ service.name }}</p>
+                                    </a>
                                     <p class="small text-muted mt-2">{{ service.description }}</p>
                                 </div>
                                 <div class="card-footer bg-white pt-0 border-0 text-center">
