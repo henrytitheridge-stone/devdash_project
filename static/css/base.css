@@ -1,235 +1,158 @@
-/* ------------------------------ General styles */
+/* --- Global Reset --- */
 html {
     height: 100%;
-    overflow-x: hidden;
     scroll-behavior: smooth;
 }
 
-/* Sticky footer, body set up as flex container */
 body {
-    background-color: #fff;
-    color: #555;
-    font-family: 'Lato';
+    background-color: #ffffff;
+    color: #333;
+    font-family: 'Lato', sans-serif;
     margin: 0;
     display: flex;
     flex-direction: column;
-    min-height: 100%;
+    min-height: 100%; /* Fixes footer jumping */
     overflow-x: hidden;
 }
 
-/* Main content area should expand to push the footer down */
 main {
     flex: 1 0 auto;
+    padding-top: 120px; /* Space for fixed-top header */
 }
 
-footer {
-    background-color: white !important;
-    z-index: 100;
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
-    width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    flex-shrink: 0;  /* prevents footer from squashing on short pages */
-}
-
-/* ------------------------------ Navigation & Hero */
+/* --- Top utility bar (Account & Basket) --- */
 #topnav {
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #eee;
 }
 
+#topnav .nav-link, 
+#topnav .text-black, 
+#topnav i, 
+#topnav p {
+    color: #000000 !important; /* Forces black text/icons on white */
+}
+
+/* --- Main Navigation Bar (Services, Contact, Newsletter) --- */
 .navbar {
-    min-height: 50px;
-    padding: 0 !important;
+    background-color: #000000 !important;
+    padding: 10px 0 !important;
 }
 
-/* Hero background, conditional class for set pages */
-.hero-bg {
-    background: url('/media/homepage_background_cropped.jpg') no-repeat center center fixed;
-    background-size: cover;
-    width: 100%;
+.navbar .nav-link, 
+.navbar .logo-font,
+.navbar-toggler {
+    color: #ffffff !important; /* Forces white text on black */
+}
+
+/* Fix for the hamburger icon on mobile */
+.navbar-toggler-icon {
+    filter: invert(1); /* Makes the black icon white */
+}
+
+/* --- Hero Layout --- */
+.hero-container {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
 }
 
 .hero-text {
-    font-size: 1.6rem;
-    line-height: 1.3;
+    font-size: 1.8rem;
+    line-height: 1.4;
+    font-weight: 300;
 }
 
-.hero-container {
-    min-height: calc(100vh - 110px);
-    display: flex;
-    align-items: center;
-    padding-top: 75px;
+/* --- Buttons & Interaction --- */
+.btn-black, .shop-now-button {
+    background: #000;
+    color: #fff !important;
+    border-radius: 0;
+    border: 1px solid #000;
 }
 
-/* from Bulma */
-.icon {
-    align-items: center;
-    display: inline-flex;
-    justify-content: center;
-    height: 1.5rem;
-    width: 1.5rem;
-}
-
-.logo-font {
-    text-transform: uppercase;
-}
-
-.main-logo-link {
-    width: fit-content;
-}
-
-/* ------------------------------ Buttons & Links */
-.btn-black {
-    background: black;
-    color: white;
+.btn-black:hover {
+    background: #333;
 }
 
 .btn-outline-black {
-    background: white;
-    color: black !important;
-    border: 1px solid black;
+    background: #fff;
+    color: #000 !important;
+    border: 1px solid #000;
+    border-radius: 0;
 }
 
-.btn-outline-black:hover,
-.btn-outline-black:active,
-.btn-outline-black:focus {
-    background: black;
-    color: white !important;
+.btn-outline-black:hover {
+    background: #000;
+    color: #fff !important;
 }
 
-.shop-now-button {
-    background: black;
-    color: white;
-    min-width: 200px;
-    max-width: 100%;
+/* --- Footer --- */
+footer {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    padding: 1rem 0 !important;
+    margin-top: auto;
 }
 
-.shop-now-button:hover,
-.shop-now-button:active,
-.shop-now-button:focus,
-.btn-black:hover,
-.btn-black:active,
-.btn-black:focus {
-    background: #333;
-    color: white;
+footer h5, footer p, footer small, footer label {
+    color: #ffffff !important;
 }
 
-/* ------------------------------ Toasts & Messages */
+/* Make the newsletter input stand out against the black */
+footer .form-control {
+    border: 1px solid #ffffff;
+}
+
+/* White border for the footer subscribe button */
+#newsletter-footer .btn-black {
+    border: 1px solid #ffffff !important;
+}
+
+#newsletter-footer .btn-black:hover {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+#newsletter-footer p, 
+#newsletter-footer .text-muted {
+    color: #ffffff !important;
+}
+
+/* --- Toasts & Messages --- */
 .message-container {
     position: fixed;
-    top: 72px;
+    top: 85px;
     right: 15px;
-    z-index: 99999999999;
+    z-index: 9999;
 }
 
-.custom-toast {
-    overflow: visible;
-}
+.custom-toast { overflow: visible; }
+.toast-capper { height: 3px; }
 
-.toast-capper {
-    height: 2px;
-}
-
-/* ------------------------------ Utility classes */
-.text-black {
-    color: #000 !important;
-}
-
-.border-black {
-    border: 1px solid black !important;
-}
-
-/* Common container for page titles and content spacing */
-.header-container {
-    padding-top: 60px;
-}
-
-/* Interactive elements */
-.remove-item {
-    cursor: pointer;
-}
-
-
-/* from CSS-tricks.com: https://css-tricks.com/snippets/css/css-triangle/ */
+/* Toast Arrows */
 .arrow-up {
-    width: 0; 
-    height: 0; 
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent; 
-    border-bottom: 10px solid black;
-    position: absolute;
-    top: -10px;
-    right: 36px;
+    width: 0; height: 0; border-left: 5px solid transparent;
+    border-right: 5px solid transparent; border-bottom: 10px solid black;
+    position: absolute; top: -10px; right: 36px;
 }
 
-/* Convenience classes - colors copied from Bootstrap */
-.arrow-primary {
-    border-bottom-color: #007bff !important;
-}
+.arrow-success { border-bottom-color: #28a745 !important; }
+.arrow-danger { border-bottom-color: #dc3545 !important; }
+.arrow-warning { border-bottom-color: #ffc107 !important; }
+.arrow-info { border-bottom-color: #17a2b8 !important; }
 
-.arrow-secondary {
-    border-bottom-color: #6c757d !important;
-}
+/* --- Utility Classes --- */
+.logo-font { text-transform: uppercase; letter-spacing: 0.1rem; }
+.remove-item { cursor: pointer; }
+.icon { align-items: center; display: inline-flex; justify-content: center; height: 1.5rem; width: 1.5rem; }
 
-.arrow-success {
-    border-bottom-color: #28a745 !important;
-}
-
-.arrow-danger {
-    border-bottom-color: #dc3545 !important;
-}
-
-.arrow-warning {
-    border-bottom-color: #ffc107 !important;
-}
-
-.arrow-info {
-    border-bottom-color: #17a2b8 !important;
-}
-
-.arrow-light {
-    border-bottom-color: #f8f9fa !important;
-}
-
-.arrow-dark {
-    border-bottom-color: #343a40 !important;
-}
-
-/* Scrollable wrapper for the mini-basket preview in success toasts */
-.basket-notification-wrapper {
-    height: 100px;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-/* -------------------------------- Media Queries */
-
-/* Slightly larger container on xl screens */
-@media (min-width: 1200px) {
-  .container {
-    max-width: 80%;
-  }
-}
-
-/* fixed top navbar only on medium and up */
-@media (min-width: 992px) {
-    .fixed-top-desktop-only {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-        z-index: 1030;
-    }
-
-    .header-container {
-        padding-top: 125px;
-    }
-}
-
+/* --- Media Queries --- */
 @media (min-width: 768px) {
-    .hero-text {
-        font-size: 3.5rem;
-    }
+    .hero-text { font-size: 3rem; }
+}
+
+@media (min-width: 992px) {
+    .header-container { padding-top: 120px; }
 }
