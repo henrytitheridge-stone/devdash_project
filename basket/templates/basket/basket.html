@@ -2,12 +2,7 @@
 {% load static %}
 
 {% block page_header %}
-    <!-- Spacing container to prevent content hiding behind fixed header -->
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
-        </div>
-    </div>
+    
 {% endblock %}
 
 {% block content %}
@@ -29,13 +24,7 @@
                 <div class="d-block d-md-none text-center">
                     {% for item in basket_items %}
                         <div class="row justify-content-center">
-                            <div class="col-12 mb-3">
-                                {% if item.service.image %}
-                                    <img class="img-fluid rounded shadow-sm" src="{{ item.service.image.url }}" alt="{{ item.service.name }}">
-                                {% else %}
-                                    <img class="img-fluid rounded shadow-sm" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.service.name }}">
-                                {% endif %}
-                            </div>
+
                             <div class="col-12 mb-2 text-center">
                                 <p class="my-0 text-black"><strong>{{ item.service.name }}</strong></p>
                                 <p class="my-0 small text-muted">Price: ${{ item.service.price }}</p>
@@ -70,7 +59,6 @@
                     <table class="table table-sm table-borderless">
                         <thead class="text-black border-bottom">
                             <tr>
-                                <th scope="col"></th>
                                 <th scope="col">Service</th>
                                 <th scope="col" class="text-right">Price</th>
                             </tr>
@@ -78,13 +66,6 @@
 
                         {% for item in basket_items %}
                             <tr>
-                                <td class="p-3 w-25">
-                                    {% if item.service.image %}
-                                        <img class="img-fluid rounded shadow-sm" src="{{ item.service.image.url }}" alt="{{ item.service.name }}">
-                                    {% else %}
-                                        <img class="img-fluid rounded shadow-sm" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.service.name }}">
-                                    {% endif %}
-                                </td>
                                 <td class="py-3">
                                     <p class="my-0"><strong>{{ item.service.name }}</strong></p>
                                     <p class="small text-muted">ID: {{ item.service.id }}</p>

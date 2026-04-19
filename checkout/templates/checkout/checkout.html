@@ -3,12 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block page_header %}
-    <!-- Spacing container to prevent content hiding behind fixed header -->
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
-        </div>
-    </div>
+
 {% endblock %}
 
 {% block content %}
@@ -30,13 +25,7 @@
                         <p class="text-muted small">Selection summary ({{ basket_items|length }})</p>
                         {% for item in basket_items %}
                             <div class="row mb-2">
-                                <div class="col-3">
-                                    {% if item.service.image %}
-                                        <img class="w-100 rounded shadow-sm" src="{{ item.service.image.url }}" alt="{{ item.service.name }}">
-                                    {% else %}
-                                        <img class="w-100 rounded shadow-sm" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.service.name }}">
-                                    {% endif %}
-                                </div>
+
                                 <div class="col-6">
                                     <p class="my-0 text-black"><strong>{{ item.service.name }}</strong></p>
                                 </div>
