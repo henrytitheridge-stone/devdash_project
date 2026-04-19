@@ -81,7 +81,7 @@ The design for the project was built on a minimalist, high-contrast aesthetic fo
 
 ### Initial deployment
 - The site was initially deployed to Heroku via the steps below:
-    - Set DEBUG to False in settings.py and committed changes (repeated for every deployment)
+    - Implemented conditional logic in settings.py to ensure DEBUG is only True in a local development environment
     - Created a new app with the project name from the Heroku dashboard
     - Opened the Settings tab in the new app
     - Added a single config var with a key set to ‘DISABLE_COLLECTSTATIC’ and value of '1'
@@ -116,6 +116,9 @@ The design for the project was built on a minimalist, high-contrast aesthetic fo
     - Generated a random key and added it to a "SECRET_KEY" environment variable in env.py
     - Replaced the insecure SECRET_KEY in settings.py with the environment variable
 - DEPLOYMENT: Added a SECRET_KEY config var to the Heroku app with a newly-generated key
+##### Stripe
+- Stripe API keys were also added to Heroku config vars and
+- Webhooks were configured with a dedicated endpoint and signing secret on Heroku to ensure order processing is completed even if a user’s browser session is interrupted
 #### Static files
 - The following steps were taken to ensure static files loaded correctly on deployment:
     - Added a STATIC_ROOT path to 'staticfiles' underneath the STATIC_DIRS in settings.py
@@ -129,3 +132,4 @@ The design for the project was built on a minimalist, high-contrast aesthetic fo
 - Finally, the site was protected against Cross-Site Request Forgery by: 
     - Adding //localhost and //*.herokuapp.com domains to CSRF_TRUSTED_ORIGINS in settings.py
 - DEPLOYMENT: This ensured that malicious sites would be prevented from tricking users' browsers into submitting unauthorised data to either the local or hosted site
+

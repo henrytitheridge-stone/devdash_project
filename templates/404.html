@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5 text-center">
+    <h1 class="display-1 logo-font mt-5">404</h1>
+    <h2 class="logo-font">Page Not Found</h2>
+    <hr class="w-25 mx-auto border-black">
+    <p class="lead mt-4">Oops! It looks like that page doesn't exist.</p>
+    <a href="{% url 'home' %}" class="btn btn-black rounded-0 text-uppercase mt-3 px-5">
+        Back to Home
+    </a>
+</div>
+{% endblock %}
