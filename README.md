@@ -55,6 +55,26 @@ The design for the project was built on a minimalist, high-contrast aesthetic fo
 | Error 404 | Enter an invalid URL path | Any | Custom 404 page loads with "Back to Home" link |
 
 ## Validation
+### HTML validation
+- Homepage:
+![Homepage validate](static/images/homepage-html-validate.png)
+Some errors were reported on other core pages but they were manually checked and found to be "non-critical" for the following reasons:
+- Duplicate IDs: Many errors stem from the Stripe Payment Element and Django Crispy Forms, which auto-generate specific ID attributes that the validator flags as duplicates.
+- No Functional Impact: I have verified that despite these validation warnings, the site maintains a 100% functional integrity, and the layout remains responsive and consistent across all browsers and devices.
+
+### CSS validation
+![CSS validation](static/images/devdash-css-validate.png)
+
+### Javascript & python
+- No errors were returned from the site's core pages when passing through the code institute PEP8 Linter
+    - Using the Flake8 extension in VSCode allowed me to minimise Python linting errors throughout
+    - Some 'line too long' errors have been left in the interests of time as they aren't affecting functionality
+
+### Lighthouse scores
+- Home desktop
+![Lighthouse score for desktop homepage](static/images/lighthouse-homepage-score-desktop.png)
+- Home mobile
+![Lighthouse score for mobile homepage](static/images/lighthouse-homepage-score-mobile.png)
 
 ## Development & Deployment
 - The site was built using Visual Studio Code connected to GitHub via the steps below:
@@ -128,8 +148,29 @@ The design for the project was built on a minimalist, high-contrast aesthetic fo
     - Ran 'python manage.py collectstatic' to create staticfiles directory and initial cache
     - Added 3.12 to .python-version file
 - DEPLOYMENT: Removed DISABLE_COLLECTSTATIC config var from the Heroku app before re-deploying
+#### Emails
+- Set ACCOUNT_EMAIL_VERIFICATION = 'none' for the final deployment to ensure a smooth, immediate user experience while maintaining the underlying SMTP code for commercial scalability.
 #### Forms and HTTP methods
 - Finally, the site was protected against Cross-Site Request Forgery by: 
     - Adding //localhost and //*.herokuapp.com domains to CSRF_TRUSTED_ORIGINS in settings.py
 - DEPLOYMENT: This ensured that malicious sites would be prevented from tricking users' browsers into submitting unauthorised data to either the local or hosted site
 
+## Credits
+Sample code from the Code Institute 'Boutique Ado' walkthrough project
+
+### Technical tools
+- Stripe: For providing the secure payment infrastructure and test card environment
+- Django Allauth: Used for the robust account registration and authentication system
+- WhiteNoise: For allowing the application to serve its own static files on Heroku
+- Crispy Forms: Used to render professional, Bootstrap-styled forms across the site.
+- W3C, Jigsaw & JSHint: For the HTML, CSS and javascript validation tools used during testing
+- Favicon.io: Used to generate the site’s favicon from text.
+
+### Documentation tools
+- Microsoft Word and Excel for creating wireframes and FB mockup
+- xml-sitemaps.com: Used to structure the sitemap.xml file for search engine optimization
+- PEP8 CI Linter: Provided by Code Institute to verify Python code compliance.
+
+### Media
+- Google Fonts: Specifically the 'Lato' typeface used for the branding
+- Font Awesome: For the iconography used in the navigation, basket, and service detail pages.
