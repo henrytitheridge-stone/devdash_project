@@ -107,6 +107,20 @@ main {
     transition: 0.3s ease-in-out;
 }
 
+/* 1. Kill the blue link color on titles and text */
+.service-card-link, 
+.service-card-link:hover, 
+.service-card-link:active, 
+.service-card-link:focus {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.service-card-link h2 {
+    color: #000000 !important;
+    font-size: 2rem; /* Manually boosting size */
+}
+
 /* --- Footer --- */
 footer {
     background-color: #000000 !important;
