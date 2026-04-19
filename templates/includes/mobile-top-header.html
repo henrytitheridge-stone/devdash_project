@@ -1,43 +1,47 @@
 <!-- Account nav-link -->
-<li class="list-inline-item dropdown">
-    <a class="text-black nav-link d-block d-lg-none" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <div class="text-center">
-            <div><i class="fas fa-user fa-lg"></i></div>
-            <p class="my-0">My Account</p>
-        </div>
-    </a>
-    <div class="dropdown-menu border-0" aria-labelledby="user-options">
-        {% if request.user.is_authenticated %}
+ <ol>
+    <li class="list-inline-item dropdown">
+        <a class="text-black nav-link d-block d-lg-none" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="text-center">
+                <div><i class="fas fa-user fa-lg"></i></div>
+                <p class="my-0">My Account</p>
+            </div>
+        </a>
+        <div class="dropdown-menu border-0">
+            {% if request.user.is_authenticated %}
 
-            <!-- Only superusers can see management tools -->
-            {% if request.user.is_superuser %}
-                <a href="{% url 'add_service' %}" class="dropdown-item">Service Management</a>
+                <!-- Only superusers can see management tools -->
+                {% if request.user.is_superuser %}
+                    <a href="{% url 'add_service' %}" class="dropdown-item">Service Management</a>
+                {% endif %}
+
+                <!-- Logged-in user options -->
+                <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
+                <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+            {% else %}
+
+                <!-- Anonymous user options -->
+                <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
             {% endif %}
-
-            <!-- Logged-in user options -->
-            <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
-            <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
-        {% else %}
-
-            <!-- Anonymous user options -->
-            <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
-            <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
-        {% endif %}
-    </div>
-</li>
+        </div>
+    </li>
+</ol>
 
 <!-- Basket nav-link with content-conditional styling -->
-<li class="list-inline-item">
-    <a class="{% if grand_total %}text-primary font-weight-bold{% else %}text-black{% endif %} nav-link d-block d-lg-none" href="">
-        <div class="text-center">
-            <div><i class="fas fa-shopping-basket fa-lg"></i></div>
-            <p class="my-0">
-                {% if grand_total %}
-                    ${{ grand_total|floatformat:2 }}
-                {% else %}
-                    $0.00
-                {% endif %}
-            </p>
-        </div>
-    </a>
-</li>
+ <ol>
+    <li class="list-inline-item">
+        <a class="{% if grand_total %}text-primary font-weight-bold{% else %}text-black{% endif %} nav-link d-block d-lg-none" href="">
+            <div class="text-center">
+                <div><i class="fas fa-shopping-basket fa-lg"></i></div>
+                <p class="my-0">
+                    {% if grand_total %}
+                        ${{ grand_total|floatformat:2 }}
+                    {% else %}
+                        $0.00
+                    {% endif %}
+                </p>
+            </div>
+        </a>
+    </li>
+</ol>
