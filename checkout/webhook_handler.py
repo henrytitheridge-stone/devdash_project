@@ -118,8 +118,11 @@ class StripeWH_Handler:
                 if order:
                     order.delete()
                 return HttpResponse(
-                    content=f'Webhook received: {event["type"]} | ERROR: {e}',
+                    content=f'Webhook received: {event["type"]} | ERROR: {str(e)}', 
                     status=500)
+                # return HttpResponse(
+                #     content=f'Webhook received: {event["type"]} | ERROR: {e}',
+                #     status=500)
         # If the webhook had to build the order itself, send confirmation email here
         self._send_confirmation_email(order)
         return HttpResponse(
