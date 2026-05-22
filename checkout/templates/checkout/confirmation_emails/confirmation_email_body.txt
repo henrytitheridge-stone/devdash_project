@@ -4,12 +4,6 @@ Thank you for your order on DevDash. Your order information is below:
 
 Order number: {{ order.order_number }}
 Order date: {{ order.date }}
-
-Order summary:
-{% for line_item in order.lineitems.all %}
-{{ line_item.service.name }} - ${{ line_item.service.price }}
-{% endfor %}
-
 Total paid: ${{ order.grand_total }}
 
 If you have any questions, feel free to contact us at {{ contact_email }}.
