@@ -60,6 +60,8 @@ class StripeWH_Handler:
         billing_details = stripe_charge.billing_details
         grand_total = round(stripe_charge.amount / 100, 2)
 
+        phone = billing_details.phone if billing_details.phone else ''
+
         # Check if the order was already created by the view
         order_exists = False
         attempt = 1
@@ -70,7 +72,7 @@ class StripeWH_Handler:
                 order = Order.objects.get(
                     full_name__iexact=billing_details.name,
                     email__iexact=billing_details.email,
-                    phone_number__iexact=billing_details.phone,
+                    phone_number__iexact=phone,
                     grand_total=grand_total,
                     original_basket=basket,
                     stripe_pid=pid,
@@ -92,7 +94,6 @@ class StripeWH_Handler:
             # If the order doesn't exist after 5 attempts, create it here from metadata
             order = None
             try:
-                phone = billing_details.phone if billing_details.phone else ''
                 order = Order.objects.create(
                     full_name=billing_details.name,
                     email=billing_details.email,
