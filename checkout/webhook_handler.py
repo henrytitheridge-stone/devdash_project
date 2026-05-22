@@ -102,7 +102,8 @@ class StripeWH_Handler:
 
                 # Reconstruct the order items from the JSON metadata
                 for item_id in json.loads(basket).keys():
-                    service = Service.objects.get(id=item_id)
+                    # Convert string keys to integers
+                    service = Service.objects.get(id=int(item_id))
                     OrderLineItem.objects.create(
                             order=order,
                             service=service,
