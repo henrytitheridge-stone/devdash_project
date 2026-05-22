@@ -92,10 +92,11 @@ class StripeWH_Handler:
             # If the order doesn't exist after 5 attempts, create it here from metadata
             order = None
             try:
+                phone = billing_details.phone if billing_details.phone else ''
                 order = Order.objects.create(
                     full_name=billing_details.name,
                     email=billing_details.email,
-                    phone_number=billing_details.phone,
+                    phone_number=phone,
                     grand_total=grand_total,
                     original_basket=basket,
                     stripe_pid=pid,
