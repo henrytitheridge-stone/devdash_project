@@ -3,6 +3,9 @@ from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
 
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+
 from .forms import OrderForm
 from .models import Order, OrderLineItem
 from services.models import Service
@@ -11,6 +14,7 @@ from basket.contexts import basket_contents
 
 import stripe
 import json
+import os
 
 
 # Create your views here.
@@ -134,6 +138,23 @@ def checkout_success(request, order_number):
     Links the order to the user's profile and clears the session basket.
     """
     order = get_object_or_404(Order, order_number=order_number)
+
+    # Test emails to console in local browser to bypass Stripe webhooks
+    if 'DEVELOPMENT' in os.environ:
+        cust_email = order.email
+        subject = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_subject.txt',
+            {'order': order})
+        body = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_body.txt',
+            {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
+
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [cust_email]
+        )
 
     # Attach profile to order if user was logged in
     if request.user.is_authenticated:
