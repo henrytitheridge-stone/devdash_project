@@ -96,6 +96,7 @@ class StripeWH_Handler:
                     full_name=billing_details.name,
                     email=billing_details.email,
                     phone_number=billing_details.phone,
+                    grand_total=grand_total,
                     original_basket=basket,
                     stripe_pid=pid,
                 )
@@ -108,7 +109,7 @@ class StripeWH_Handler:
                             order=order,
                             service=service,
                         )
-                order.update_total()
+
             except Exception as e:
                 if order:
                     order.delete()
