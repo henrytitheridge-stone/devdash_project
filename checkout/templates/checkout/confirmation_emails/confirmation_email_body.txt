@@ -6,8 +6,8 @@ Order number: {{ order.order_number }}
 Order date: {{ order.date }}
 
 Order summary:
-{% for item in order.lineitems.all %}
-{{ item.service.name }} - ${{ item.service.price }}
+{% for line_item in order.lineitems.all %}
+{{ line_item.service.name }} - ${{ line_item.service.price }}
 {% endfor %}
 
 Total paid: ${{ order.grand_total }}
