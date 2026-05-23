@@ -97,7 +97,7 @@ def checkout(request):
             messages.error(request, "There's nothing in your basket at the moment")
             return redirect(reverse('services'))
 
-        # Prep totals for Stripe in cents 
+        # Prep totals for Stripe in cents
         current_basket = basket_contents(request)
         total = current_basket['grand_total']
         stripe_total = round(total * 100)

@@ -36,12 +36,6 @@ class StripeWH_Handler:
             [cust_email],
             fail_silently=False  # Reveal smtp errors in logs
         )
-        # except Exception as email_error:
-        #     # If Gmail rejects the connection, force the error straight to Stripe
-        #     from django.http import HttpResponse
-        #     return HttpResponse(
-        #         content=f'Webhook matched order, but GMAIL connection failed | ERROR: {str(email_error)}',
-        #         status=500)
 
     def handle_event(self, event):
         """
@@ -77,11 +71,6 @@ class StripeWH_Handler:
         while attempt <= 5:
             try:
                 order = Order.objects.get(
-                    # full_name__iexact=billing_details.name,
-                    # email__iexact=billing_details.email,
-                    # phone_number__iexact=phone,
-                    # grand_total=grand_total,
-                    # original_basket=basket,
                     stripe_pid=pid,
                 )
                 order_exists = True
@@ -125,11 +114,8 @@ class StripeWH_Handler:
                 if order:
                     order.delete()
                 return HttpResponse(
-                    content=f'Webhook received: {event["type"]} | ERROR: {str(e)}', 
+                    content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)
-                # return HttpResponse(
-                #     content=f'Webhook received: {event["type"]} | ERROR: {e}',
-                #     status=500)
         # If the webhook had to build the order itself, send confirmation email here
         self._send_confirmation_email(order)
         return HttpResponse(
