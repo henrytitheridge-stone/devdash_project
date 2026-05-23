@@ -29,19 +29,19 @@ class StripeWH_Handler:
             'checkout/confirmation_emails/confirmation_email_body.txt',
             {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
 
-        try:
-            send_mail(
-                subject,
-                body,
-                settings.DEFAULT_FROM_EMAIL,
-                [cust_email]
-            )
-        except Exception as email_error:
-            # If Gmail rejects the connection, force the error straight to Stripe!
-            from django.http import HttpResponse
-            return HttpResponse(
-                content=f'Webhook matched order, but GMAIL connection failed | ERROR: {str(email_error)}',
-                status=500)
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [cust_email],
+            fail_silently=False  # Reveal smtp errors in logs
+        )
+        # except Exception as email_error:
+        #     # If Gmail rejects the connection, force the error straight to Stripe
+        #     from django.http import HttpResponse
+        #     return HttpResponse(
+        #         content=f'Webhook matched order, but GMAIL connection failed | ERROR: {str(email_error)}',
+        #         status=500)
 
     def handle_event(self, event):
         """
