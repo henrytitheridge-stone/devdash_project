@@ -1,7 +1,15 @@
 # DEVDASH Project
-DevDash is a B2B agency selling one-off digital audits to other businesses. Marketing strategy includes an email newsletter for lead retention and a facebook business page for brand awareness. Here is a mockup:
-![Mock facebook page](static/images/fb-business-page-sample-content.png)
-The newsletter signup is in the footer:
+DevDash is a B2B agency selling one-off digital audits to other businesses. Marketing strategy includes an email newsletter for lead retention and a facebook business page for brand awareness:
+![FB page cover, profile pic, bio](static/images/fb-page-cover.png)
+![FB page info, services, pinned post](static/images/fb-page-info.png)
+![FB page link](static/images/fb-page-link.png)
+![FB page categories](static/images/fb-page-categories.png)
+![FB page post, link](static/images/fb-page-post.png)
+
+The 'Learn more' call-to-action button was favoured over 'Buy now' as it allowed a direct link to the website without requiring connection to a registration-only e-commerce tool:
+![FB page cta button](static/images/fb-page-cta-button.png)
+
+The newsletter signup is in the footer of each page of the site:
 ![Newsletter signup](static/images/newsletter-signup.png)
 
 ## User stories
@@ -90,8 +98,8 @@ Some errors were reported on other core pages but they were manually checked and
     - Ran the following commands to install Django, list dependencies, and start a new project:
         - pip3 install Django~=4.2.1
         - pip3 freeze local > requirements.txt
-        - django-admin startproject readable .
-    - Started the new app by running: python manage.py startapp catalogue
+        - django-admin startproject devdash .
+    - Started new apps by running: python manage.py startapp 'each app name'
     - Added this to the INSTALLED_APPS in settings.py
 
 - Throughout the project, changes made in VS Code were regularly saved and shared by:
@@ -146,7 +154,6 @@ Some errors were reported on other core pages but they were manually checked and
         - Running 'pip3 install whitenoise~=5.3.0' and 'pip3 freeze --local > requirements.txt'
         - Adding the whitehoise MIDDLEWARE and backend STORAGES to settings.py
     - Ran 'python manage.py collectstatic' to create staticfiles directory and initial cache
-    - Added 3.12 to .python-version file
 - DEPLOYMENT: Removed DISABLE_COLLECTSTATIC config var from the Heroku app before re-deploying
 #### Emails
 - Set ACCOUNT_EMAIL_VERIFICATION = 'none' for the final deployment to ensure a smooth, immediate user experience while maintaining the underlying SMTP code for commercial scalability.
@@ -167,10 +174,12 @@ Sample code from the Code Institute 'Boutique Ado' walkthrough project
 - Favicon.io: Used to generate the site’s favicon from text.
 
 ### Documentation tools
-- Microsoft Word and Excel for creating wireframes and FB mockup
+- Facebook: Used to create the business page for marketing screenshots
+- Microsoft Excel for creating wireframes
 - xml-sitemaps.com: Used to structure the sitemap.xml file for search engine optimization
 - PEP8 CI Linter: Provided by Code Institute to verify Python code compliance.
 
 ### Media
 - Google Fonts: Specifically the 'Lato' typeface used for the branding
 - Font Awesome: For the iconography used in the navigation, basket, and service detail pages.
+- Unsplash: For the Facebook business page cover image
